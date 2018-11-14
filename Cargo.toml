@@ -1,0 +1,12 @@
+[package]
+name = "language_colors"
+version = "0.1.0"
+authors = ["Alexander Thaller <alexander.thaller@trivago.com>"]
+edition = "2018"
+
+[dependencies]
+reqwest = "0.9"
+
+serde = "1"
+serde_derive = "1.0"
+serde_yaml = "0.8"
