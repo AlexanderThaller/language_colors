@@ -122,8 +122,7 @@ fn main() {
         }
     }
 
-    eprintln!("printing");
-    let languages_html = nearest_colors
+    let languages_html_name = languages_colors
         .iter()
         .map(|(name, color)| {
             format!(
@@ -138,6 +137,22 @@ fn main() {
         .collect::<Vec<_>>()
         .join("\n");
 
+    let languages_html_nearest = nearest_colors
+        .iter()
+        .map(|(name, color)| {
+            format!(
+                r#"<tr class="outline_text">
+                    <td bgcolor="{color}">{name}</td>
+                    <td bgcolor="{color}"><code>{color}</code></td>
+                    </tr>"#,
+                name = name,
+                color = color.as_webcolor(),
+            )
+        })
+        .collect::<Vec<_>>()
+        .join("\n");
+
+    eprintln!("printing");
     println!(
         r#"
     <!DOCTYPE html>
@@ -173,6 +188,19 @@ fn main() {
     </style>
     </head>
     <body>
+    <h1>Github Programming Language Colors</h1>
+
+    </h2>By Name</h2>
+    <table>
+    <tr>
+    <th>Language</th><th>Color</th>
+    </tr>
+    {}
+    </table>
+    </body>
+    </html>
+
+    </h2>By Nearest Color</h2>
     <table>
     <tr>
     <th>Language</th><th>Color</th>
@@ -182,6 +210,6 @@ fn main() {
     </body>
     </html>
                  "#,
-        languages_html
+        languages_html_name, languages_html_nearest
     );
 }
